@@ -1,0 +1,11 @@
+/*
+SELECT L.the_geom_webmercator, L.landing_sites, F.first_name, F.last_name,C.number_of_species, to_char(C.catch_date, 'YYYY-MM-DD'), current_date, C.catch_date 
+FROM catch C, lsites L, fishermen F 
+WHERE C.have_catch = 1 AND C.site_code = L.site_code AND C.fisherman_id = F.fisherman_id AND
+to_char(C.catch_date, 'YYYY-MM-DD') = current_date;
+*/
+
+/*C.catch_date = current_date;*/
+
+
+

@@ -1,0 +1,162 @@
+
+
+http://tobagoborn.cartodb.com/api/v2/sql?q=SELECT count(*) FROM lsites
+
+http://tobagoborn.cartodb.com/api/v2/sql?q=
+INSERT INTO catch (site_code, have_catch, catch_date, fisherman_id) VALUES ('LS07', 1, now(),'F01')&api_key=48cd827d9163b44d9f1ced544bcc2aa5cc5d4bee");
+
+bootstrap-select.js
+
+Milford
+Bon Accord Lagoon
+Buccoo
+Mt Irvine
+Lambeau
+Black Rock
+Hope
+King Peter's Bay
+Castara
+Englishman's Bay
+Palatuvier
+Bloody Bay
+Charlottevile
+Speyside
+King's Bay
+Delaford
+Kilgwyn
+Roxbourough
+Argyle
+Belle Garden
+Richmond Bay
+Goldsborough
+Granby
+Studley Park
+Scarborough
+Louis D'or
+Culloden Bay
+Arnos Vale
+Plymouth
+
+
+	
+Milford
+	
+LS02
+	
+Bon Accord Lagoon
+	
+LS03
+	
+Buccoo
+	
+LS04
+	
+Mt Irvine
+	
+LS05
+	
+Lambeau
+	
+LS06
+	
+Black Rock
+	
+LS07
+	
+Hope
+	
+LS10
+	
+King Peter's Bay
+	
+LS12
+	
+Castara
+	
+LS13
+	
+Englishman's Bay
+	
+LS14
+	
+Palatuvier
+	
+LS15
+	
+Bloody Bay
+	
+LS16
+	
+Charlottevile
+	
+LS17
+	
+Speyside
+	
+LS18
+	
+King's Bay
+	
+LS19
+	
+Delaford
+	
+LS20
+	
+Kilgwyn
+	
+LS01
+	
+Roxbourough
+	
+LS22
+	
+Argyle
+	
+LS23
+	
+Belle Garden
+	
+LS24
+	
+Richmond Bay
+	
+LS25
+	
+Goldsborough
+	
+LS26
+	
+Granby
+	
+LS27
+	
+Studley Park
+	
+LS28
+	
+Scarborough
+	
+xx01
+	
+Louis D'or
+	
+LS21
+	
+null
+	
+null
+	
+Culloden Bay
+	
+LS11
+	
+Arnos Vale
+	
+LS09
+	
+Plymouth
+	
+LS08
+
+

@@ -1,0 +1,47 @@
+/* #main
+{
+	width: 700px;
+	margin-left: 200px;
+	margin-right: auto;
+	font-size: 14px;
+	font-family: Arial,Helvetica,sans-serif;
+}
+
+#caption
+{
+	width: 700px;
+	margin-left: 400px;
+	margin-right: auto;
+	font-size: 14px;
+	font-family: Arial,Helvetica,sans-serif;
+}
+*/
+
+#map_canvas, #mapstuff
+{
+
+	margin-top: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	height:800px; 
+	width:1130px;
+	background-color: #13ACBF; 
+	border:1px solid black; 
+	text-align: center;
+
+}
+
+#map_canvas1, #caption
+{
+
+	margin-top: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	height:800px; 
+	width:1130px;
+	background-color: white; 
+	border:1px solid black; 
+	text-align: center;
+
+}
+

@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<meta charset="UTF-8">
+<html>
+<head>
+	<title>Landing Sites</title>
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="http://tobagoborn.com/demo/favicon.ico">
+	<link href="css/main.css" rel="stylesheet">
+    <style>
+		body 
+		{
+			background-color: #13ACBF;
+			padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+		}
+
+		#over, .alert-info 
+		{
+			 z-index: 100;
+			 background-color: black;
+			 color: white;
+			 border: 3px solid #fbeed5;
+			 border-color: #bce8f1;
+		}
+    </style>
+	
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+	<!--   cartodb & leaflet -->
+	<link rel="shortcut icon" href="http://cartodb.com/favicon/favicon_32x32.ico" />
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.3.1/leaflet.css" />
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.3.1/leaflet.ie.css" />
+	<link  href="cartodb-leaflet/css/cartodb-leaflet.css" rel="stylesheet" type="text/css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.3.1/leaflet.js"></script>
+	<script type="text/javascript" src="cartodb-leaflet/js/wax.leaf.js"></script>
+	<script type="text/javascript" src="cartodb-leaflet/dist/cartodb-leaflet.js"></script>
+	<script type="text/javascript" src="cartodb-leaflet/dist/cartodb-popup.js"></script>
+
+	<script type="text/javascript">
+	var cartodb_leaflet1, cartodb_leaflet2;
+	//var popup = new L.CartoDBPopup();
+
+	function initialize()
+	{
+		var map = new L.Map('map_canvas',
+		{
+			doubleClickZoom:true,zoomControl:true,scrollWheelZoom: false,touchZoom: false,dragging: true, minZoom: 11, maxZoom: 13
+		}).setView(new L.LatLng(11.22,  -60.65), 10);
+
+		var tilesUrl = 'http://tobagoborn.com/tiles/tobagobasemap/{z}/{x}/{y}.png',
+		//var tilesUrl = 'http://192.168.1.50/tiles/tobagobasemap/{z}/{x}/{y}.png',
+		//var tilesUrl = 'http://tobagoborn.com/tiles/1.0.0/tobago/{z}/{x}/{y}.png',
+		//var tilesUrl = 'http://192.168.1.50/tiles/1.0.0/tobago/{z}/{x}/{y}.png',
+		tilesLayer = new L.TileLayer(tilesUrl, {maxZoom: 13});
+		map.addLayer(tilesLayer,true);
+
+		var popup = new L.CartoDBPopup();
+
+	    cartodb_leaflet1 = new L.CartoDBLayer(
+		{
+			map_canvas: 'map_canvas',
+			map: map,
+			user_name:"tobagoborn",
+			table_name: 'lsites',
+			query: "SELECT * FROM {{table_name}}",
+			interactivity: "landing_sites,number_of_boats,top_species,site_code",
+
+			featureOver: function(ev,latlng,pos,data) 
+			{
+
+				var html = "";
+				html += "<p><b><u>LANDING SITE INFO</u></b>" + "</p>";
+				html += "<p><b>Site Name: </b>" + data.landing_sites +"</p>";
+				html += "<p><b>Number of Boats: </b>" + data.number_of_boats +"</p>";
+				html += "<p><b>Main Species Caught: </b>" + data.top_species +"</p>";
+				html += "Click to get more information about this Landing Site";
+
+				var X = 0;
+				var Y = 0;
+				X += pos.x;
+				Y += pos.y;
+				document.body.style.cursor = "pointer";
+				$("div#over").css('position', 'absolute');
+				$("div#over").offset({top: Y, left: X});
+				$("div#over").html(html);
+				$("div#over").show();
+
+			},
+
+			featureOut: function()
+			{
+				document.body.style.cursor = "default";
+				hidePopup();
+			},
+
+			auto_bound: false,
+			debug: false,
+
+			//------- CLICK EVENT -----------
+			featureClick: function(ev,latlng,pos,data) 
+			{
+
+				var html = "";
+				for (var column in data) 
+				{
+					html += '<label>' + column + '</label>';
+					html += '<p>' + data[column] + '</p>';
+					//$('#createFormId').modal('show');
+
+				}
+				// If you are using jquery, add the html to the mydiv element
+				//$("div#mydiv").html(html);
+				$location ="";
+				$location += "INFO FOR LANDING SITE: ";
+				$location += data.landing_sites;
+				$site = data.site_code;
+				//alert($location);
+				//window.open('siteinfo.php?loc= ' + $location); //&'id= ' + $site, '_blank');
+				<!-- -------- Modal Stuff ------------ -->
+				$("div#site").html($location)
+				$("#siteCode").val(data.site_code);
+				//alert(data.site_code);
+				$('#siteInfo').modal('show');
+			},
+
+	    });
+		map.addLayer(cartodb_leaflet1);
+
+		function hidePopup() 
+		{
+			$("div#over").hide();
+		}
+		
+	}
+	</script>
+	
+	<!-- End of cartodb & leaflet -->
+</head>
+
+  <body onload="initialize()">
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+
+				<a class="brand" href="/daycatch">CATCH OF THE DAY</a>
+				<ul class="nav">
+					<li><a href="/daycatch">Home</a></li>
+					<li class="active"><a href="landingsites.html">Landing Sites</a></li>
+					<li><a href="todayscatch2.php">Today's Catch</a></li>
+					<li><a href="about.html">About</a></li>
+				</ul>
+				
+			</div> <!-- container -->
+		</div> <!-- navbar-inner -->
+	</div> <!-- navbar -->
+
+
+	<div class="container">
+		<!-- div id="caption"  style="text-align: center;">
+			<h1>LANDING SITES</h1>
+		</div -->
+		<div id="mapstuff" style="text-align: center;">
+		<h1>LANDING SITES</h1>
+		<center> Hover over landing site for more info</center>
+			<div id="map_canvas"> <!-- style="height:800px; width:950px;background-color: #13ACBF; border:1px solid black; text-align: center;" --> 
+			</div>
+			<div id="over">
+				<!--a class="close" data-dismiss="alert" href="#">X</a -->
+			</div>
+
+	<!-- -----------------------------MODAL-----------------------------------------------------------------------------> 		
+		<div class="container">  
+			<div id="siteInfo" class="modal hide fade in" style="display: none; ">  
+				<div class="modal-header">  
+					<a href="#" class="close" data-dismiss="modal">&times</a>  
+					<h3><div id=site> </div></h3>  
+				</div>
+				<div class="modal-body">  
+					<form class=class="form-horizontal">  
+						
+						cartodb_id	<br>
+						landing_sites <br>
+						number_of_boats <br>
+						rec_id <br>
+						site_code <input type="text" id="siteCode" name="siteCode" class="input-small" /><br>
+						speciality<br>
+						top_species<br>
+					</form>
+				</div><!-- end of modal-body -->
+				<div class="modal-footer">  
+					<a href="#" class="btn" data-dismiss="modal">Close</a>  
+				</div>  
+			</div>
+		</div><!-- end container -->
+
+		</div><!-- MAPSTUFF-->
+
+		<!--------------SEARCH-------------- >
+		
+		    <div class="alert alert-info" id="legend"> <div style="margin-left: -12px; margin-top:5px;">
+    <a href="http://savannahnow.com" target="_blank"><img src="img/savnow.gif" /></a></div><div id="about">
+ <p><b>  Savannah-Chatham Restaurant Inspections Database</b></p><div id="info">
+Data: <a href="http://ga.state.gegov.com/georgia/search.cfm?county=Chatham" target="_blank">Chatham County Health Department</a> | <a href="http://google.com">About this Map</a></div></div><div style="margin-top:5pxmargin-bottom:10px;margin-left:12px;">
+                        <label for="txtGeocode">
+                            Search by location or name:</label>
+                        <input id="txtGeocode" type="text" />
+                        <input id="btnGeocode" type="button" value="Find" />
+                    </div>
+
+<div style="float:center; display: none;"><img src="img/adblock.gif" /></div><div class="filter">Filter by score:</div>
+    <div class="btn-group">
+            <button class="btn" onClick="changeLayer('All')">All Scores</button>
+            <button class="btn" onClick="changeLayer('A')"><img src="img/blue.png" width="12" height="12" />A (90-100)</button>
+            <button class="btn" onClick="changeLayer('B')"><img src="img/green.png" width="12" height="12"  />B (80-89)</button>
+            <button class="btn" onClick="changeLayer('C')"><img src="img/yellow.png" width="12" height="12"  />C (71-80)</button>
+            
+          </div>
+<div id="copyright">© 2012 <a href="http://savannahnow.com" target="_blank">Savannah Morning News</a></div>
+    
+    </div>
+
+    <div class="alert alert-info" id="tooltip">
+      <p>Tooltip</p>
+    </div -->    
+
+		
+	</div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="js/bootstrap.min.js"></script>
+
+  </body>
+
+</html>

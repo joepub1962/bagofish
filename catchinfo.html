@@ -1,0 +1,204 @@
+<html>
+<head>
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">  
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet" type="text/css">
+	<link href="jquery-dropdown/jquery.dropdown.css" rel="stylesheet" />
+	<link href="bootstrap-select/bootstrap-select.css" rel="stylesheet" />
+
+	<!--style type="text/css">
+	body 
+	{
+		padding-top: 60px;
+		padding-bottom: 0px;
+	}
+	</style -->
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="http://tobagoborn.com/demo/favicon.ico" >
+
+	<!--   cartodb & leaflet -->
+	<link rel="shortcut icon" href="http://cartodb.com/favicon/favicon_32x32.ico" />
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.3.1/leaflet.css" />
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.3.1/leaflet.ie.css" />
+	<link  href="cartodb-leaflet/css/cartodb-leaflet.css" rel="stylesheet" type="text/css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.3.1/leaflet.js"></script>
+	<script type="text/javascript" src="cartodb-leaflet/js/wax.leaf.js"></script>
+	<script type="text/javascript" src="cartodb-leaflet/dist/cartodb-leaflet.js"></script>
+	<script type="text/javascript" src="cartodb-leaflet/dist/cartodb-popup.js"></script>
+
+<script>
+
+	function catchData()
+	{
+
+		$('#submitbttn').click(function(e)
+		{
+			if ($("#siteCodes").val() =="") 
+			{
+				alert("Choose a Location");
+				e.preventDefault();
+				return false;
+			}  
+
+			//var scvalue = $("#siteCodes").val();;
+			//alert('Site Code Value: ' + lvalue);
+			var data = $("form#catchinfo").serialize();
+
+			//alert('serial data: ' + [data]);
+
+			$.ajax(
+			{
+				url:"catchinfo.php", 
+				type: "POST",
+				dataType: 'html',
+//				cache: false,
+				data:data,
+				success:function(data)
+				{
+					alert(data);
+				} //end success
+			}); //end ajax
+		//alert(data);
+	return false;
+
+		}); //end click
+	}
+	
+		$(document).ready(function() 
+		{
+			catchData();
+		});
+
+</script>
+</head>
+<body>
+<form  method="POST" name="catchinfo" id="catchinfo">
+
+
+<div class="container">  
+<div class="row">  
+	<div class="span4">
+		Landing Site: 
+		<select id="siteCode" name="siteCode" class="selectpicker">
+			<option value = "" selected>Choose One</option>
+			<option value = LS23>Argyle</option>
+			<option value = LS09>Arnos Vale</option>
+			<option value = LS24>Belle Garden</option>
+			<option value = LS07>Black Rock</option>
+			<option value = LS16>Bloody Bay</option>
+			<option value = LS03>Bon Accord Lagoon</option>
+			<option value = LS04>Buccoo</option>
+			<option value = LS13>Castara</option>
+			<option value = LS17>Charlottevile</option>
+			<option value = LS11>Culloden Bay</option>
+			<option value = LS20>Delaford</option>
+			<option value = LS14>Englishman's Bay</option>
+			<option value = LS26>Goldsborough</option>
+			<option value = LS27>Granby</option>
+			<option value = LS10>Hope</option>
+			<option value = LS01>Kilgwyn</option>
+			<option value = LS19>King's Bay</option>
+			<option value = LS12>King Peter's Bay</option>
+			<option value = LS06>Lambeau</option>
+			<option value = LS21>Louis D'or</option>
+			<option value = LS02>Milford</option>
+			<option value = LS05>Mt Irvine</option>
+			<option value = LS15>Palatuvier</option>
+			<option value = LS08>Plymouth</option>
+			<option value = LS22>Roxbourough</option>
+			<option value = LS25>Richmond Bay</option>
+			<option value = XX01>Scarborough</option>
+			<option value = LS18>Speyside</option>
+			<option value = LS28>Studley Park</option>
+		</select>
+	</div>
+	
+	<div class= 'span4'>
+		Fisher Man's Id: 
+		<select id="fishermanId" name="fishermanId" class="selectpicker">
+			<option value = "" selected>Choose One</option>
+			<option value = F01>F01</option>
+			<option value = F02>F02</option>
+			<option value = F03>F03</option>
+			<option value = F04>F04</option>
+			<option value = F05>F05</option>
+			<option value = F06>F06</option>
+			<option value = F07>F07</option>
+			<option value = F08>F08</option>
+			<option value = F09>F09</option>
+			<option value = F10>F10</option>
+		</select>
+	</div>
+	
+	<div class='span4'>
+		Number of the fish Species caught<br>
+		<input id="numbFish" name="numbFish" type='text'>
+	</div>
+
+</div> <!-- end row -->
+</div><!-- end container-->
+
+<div class="container">  
+<div class="row">  
+	<div class="span4">
+		Enter name of the first fish Species<br>
+		<input type='text'>
+	</div>
+	<div class="span4">
+		Enter name of the second fish Species<br>
+		<input type='text'>
+	</div>
+	<div class="span4">
+		Enter name of the third fish Species<br>
+		<input type='text'>
+	</div>
+	
+	<div class="span4">
+		Enter name of the fourth fish Species<br>
+		<input type='text'>
+	</div>
+	<div class="span4">
+		Enter name of the fifth fish Species<br>
+		<input type='text'>
+	</div>
+</div> <!-- end row -->
+</div><!-- end container-->
+
+<div class="container">  
+<div class="row">  
+	<div>
+		<button type="submit" id="submitbttn">Submit</button>
+	
+	</div>
+</div> <!-- end row -->
+</div><!-- end container-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/bootstrap.min.js"></script>
+	<script src="jquery-dropdown/jquery.dropdown.js"></script>
+	<script src="bootstrap-select/bootstrap-select.js"></script>
+
+	
+</form>
+</body>
+</html>
+
+<!--
+Landing site
+<select>
+
+
+</select>
+First Name
+Last Name
+Number of Species
+
+-->
